@@ -1,0 +1,4 @@
+#!/usr/local/bin/ruby
+
+# http://gilesbowkett.blogspot.com/2007/12/bash-google-one-liner-for-os-x.html
+system "open http://google.com/search?q=#{ARGV[0].gsub(/ /, '%20')}"

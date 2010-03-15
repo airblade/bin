@@ -1,0 +1,14 @@
+#!/bin/sh
+#
+# Makes local branch track remote branch of the same name.
+
+# http://graysky.org/2008/12/git-branch-auto-tracking/
+# http://djwonk.com/blog/2009/04/18/tracking-remote-git-branches/
+
+branch=$(git branch 2>/dev/null | grep ^\*)
+[ x$1 != x ] && tracking=$1 || tracking=${branch/* /}
+ 
+git config branch.$tracking.remote origin
+git config branch.$tracking.merge refs/heads/$tracking
+
+echo "tracking origin/$tracking"

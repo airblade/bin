@@ -1,0 +1,2 @@
+#!/bin/bash
+sudo launchctl unload -w /Library/LaunchDaemons/com.mysql.mysqld.plist

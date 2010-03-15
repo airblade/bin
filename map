@@ -1,0 +1,8 @@
+#!/usr/local/bin/ruby
+
+# Expects lat and long.  Example usage:
+#
+# $ map "17.58N 47.33W"
+url ="http://maps.google.com/maps?q=#{ARGV[0].gsub(/ /, '+')}&ie=UTF8&z=3&iwloc=addr&om=1"
+puts url
+system "open #{url}"

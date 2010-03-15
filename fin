@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# Use when I have completed a git topic branch (and am still on it).
+
+CURRENT=`git branch | grep '\*' | awk '{print $2}'`
+git checkout master
+git merge ${CURRENT}
+git branch -d ${CURRENT}
