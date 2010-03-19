@@ -1,0 +1,4 @@
+#!/usr/local/bin/ruby
+# http://coderrr.wordpress.com/2008/05/28/get-your-local-ip-address/
+require 'socket'
+UDPSocket.open {|s| s.connect('64.233.187.99', 1); puts s.addr.last }
