@@ -1,0 +1,41 @@
+#!/usr/bin/env ruby
+
+# Use this whenever Rails is released and they say, "See the changelogs for details."
+#
+# Note: you need to run it from a Rails git repo.
+
+if ARGV.empty?
+  puts <<END
+Usage:
+
+    diff_rails_changelogs <endpoint> [<endpoint>]
+
+If you omit the second endpoint, it will default to HEAD.
+
+(You need to be in a rails git repo.)
+
+Examples:
+
+    diff_rails_changelogs v3.0.6 v3.0.7.rc1
+    diff_rails_changelogs v3.0.6
+
+You might want to use these tags:
+
+#{`git tag`}
+END
+  exit 1
+else
+  a = ARGV.shift
+  b = ARGV.shift || 'HEAD'
+end
+
+width = 80
+
+%w[ actionmailer actionpack activemodel activerecord activeresource activesupport railties ].each do |dir|
+  puts '-' * width
+  puts dir.upcase.center(width)
+  puts '-' * width
+  diff = `git diff -U0 #{a} #{b} #{File.join dir, 'CHANGELOG'}`
+  # Remove git metadata.
+  puts diff.scan(/^.*?$/)[5..-1].join("\n"), ''
+end
