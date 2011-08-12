@@ -1,9 +1,16 @@
-#!/bin/bash
+#!/usr/bin/env bash -e
 
 while x=1; do
-  /System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport -I |
-    grep CtlRSSI |
-    sed -e 's/^.*://g' |
-    xargs -I SIGNAL printf "\rsignal: SIGNAL dBm"
+  stats=`/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport -I`
+  for x in SSID CtlRSSI CtlNoise; do
+    echo $stats             |
+    grep -o "$x: [^ ]\+"  |
+    sed -e 's/^.*://g'      |
+    case $x in
+      SSID)     xargs -I VALUE printf "\rVALUE: " ;;
+      CtlRSSI)  xargs -I VALUE printf "\tsignal: VALUEdBm";;
+      CtlNoise) xargs -I VALUE printf "\tnoise: VALUEdBm";;
+    esac
+  done
   sleep 0.5
 done
