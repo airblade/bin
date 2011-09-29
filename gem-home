@@ -1,0 +1,3 @@
+#!/bin/sh
+# Open a gem's homepage.
+gem list -d $@ | awk '/Homepage/ {print $2}' | xargs open
