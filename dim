@@ -1,0 +1,8 @@
+#!/bin/sh
+#
+# Print the dimensions of a given image.
+#
+# Usage: dim <image>
+#
+
+identify $@ | awk '{print $3}'
