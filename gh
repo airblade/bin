@@ -1,7 +1,9 @@
 #!/bin/sh
 
 # Open specific pages on GitHub.
-# See defunkt/hub for a lot more.
+#
+# If Hub (defunkt/hub) is a Swiss army penknife,
+# this is a bottle opener.
 #
 # Usage:
 #
