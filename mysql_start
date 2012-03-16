@@ -1,2 +1,0 @@
-#!/bin/bash
-sudo launchctl load -w /Library/LaunchDaemons/com.mysql.mysqld.plist
