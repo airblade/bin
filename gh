@@ -7,10 +7,10 @@
 #
 # Usage:
 #
-#   $ gh [repo | <treeish> | username/repo]
+#   $ gh [repo | <commit> | username/repo]
 #
 #   $ gh                  # open current repo
-#   $ gh <treeish>        # open current repo @ <treeish>
+#   $ gh <commit>         # open current repo @ <commit>
 #   $ gh repo             # open current user's repo
 #   $ gh username/repo    # open username's repo
 
@@ -32,7 +32,7 @@ case "$1" in
     ;;
 
   *)
-    # current repo @ treeish
+    # current repo @ commit
     if git branch -a --contains "$1" &> /dev/null; then
       remote_username_repo=$(git config --get remote.origin.url | cut -d : -f 2 | cut -d  . -f 1)
       open "$GITHUB/$remote_username_repo/commit/$1"
