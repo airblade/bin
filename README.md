@@ -9,7 +9,7 @@ bin
 
 * `dim`: print image dimensions.
 
-* `e`: extract any archive.  No need to remember all thos flags.
+* `e`: extract any archive.
 
 * `exip`: print external IP address.
 
@@ -32,3 +32,10 @@ bin
 * `mvim`: launch MacVim.
 
 * `wifi-meter`: live signal and noise readings.
+
+
+## Intellectual Property
+
+Copyright 2012 Andy Stewart.
+
+Released under the MIT licence.
