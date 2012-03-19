@@ -1,5 +1,6 @@
-bin
-===
+## bin
+
+It's not rubbish:
 
 * `ack`: better than grep.
 
