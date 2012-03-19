@@ -1,6 +1,4 @@
-## bin
-
-It's not rubbish:
+It's not rubbish.
 
 * `ack`: better than grep.
 
