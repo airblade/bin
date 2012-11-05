@@ -32,6 +32,8 @@ It's not rubbish.
 
 * `mvim`: launch MacVim.
 
+* `tab`: open a new Terminal tab in same directory as current tab.
+
 * `wifi-meter`: live signal and noise readings.
 
 

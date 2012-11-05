@@ -1,0 +1,7 @@
+#!/bin/bash
+#
+# Opens a new Terminal tab in the same directory as the current tab.
+osascript &> /dev/null <<END
+  tell application "System Events" to tell process "Terminal" to keystroke "t" using command down
+  tell application "Terminal" to do script "cd $(pwd)" in first window
+END
