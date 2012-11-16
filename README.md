@@ -28,9 +28,15 @@ It's not rubbish.
 
 * `inip`: print internal IP address.
 
+* `jsonpp`: pretty-print JSON.
+
 * `markdown`: original Markdown script.
 
 * `mvim`: launch MacVim.
+
+* `open-chrome-url-in-safari`: does what it says on the tin.
+
+* `open-safari-url-in-chrome`: does what it says on the tin.
 
 * `tab`: open a new Terminal tab in same directory as current tab.
 

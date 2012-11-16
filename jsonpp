@@ -1,0 +1,9 @@
+#!/usr/bin/env ruby
+#
+# Pretty-prints a JSON string.
+# Alternatively use colorful_json gem.
+
+require 'json'
+obj = JSON.parse ARGF.read
+puts JSON.pretty_unparse(obj)
+

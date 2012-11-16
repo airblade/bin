@@ -1,0 +1,11 @@
+#!/bin/bash
+#
+# Opens Safari's current page in Google Chrome.
+
+osascript &> /dev/null <<END
+  tell application "Safari"
+    set theUrl to URL of front document
+  end tell
+
+  do shell script "open -a 'Google Chrome' " & theUrl
+END
