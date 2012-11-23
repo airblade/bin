@@ -4,8 +4,6 @@
 #
 # Rails logs multiple lines per request.  This script filters the given log file
 # for request blocks matching the given pattern.
-#
-# It writes the results to an output file (instead of standard out / pipe / etc).
 
 if ARGV.length != 2
   puts "Usage: cack PATTERN LOGFILE"
@@ -14,14 +12,13 @@ end
 
 pattern = /#{ARGV[0]}/
 input = ARGV[1]
-output = "#{input}.out"
 
 def blank?(line)
   line == "\n"
 end
 
-def write(destination, buffer)
-  destination.puts *buffer
+def write(buffer)
+  puts *buffer
 end
 
 def matches?(buffer, pattern)
@@ -32,19 +29,17 @@ end
 buffer = []
 seen_blank_line = false
 
-open(output, 'w') do |out|
-  open(input).each do |line|
-    buffer << line
-
-    if blank?(line)
-      if seen_blank_line
-        write(out, buffer) if matches?(buffer, pattern)
-        buffer = []
-        seen_blank_line = false
-      else
-        seen_blank_line = true
-      end
+open(input).each do |line|
+  buffer << line
+  # Log blocks are separated by two blank lines.
+  if blank?(line)
+    if seen_blank_line
+      write buffer if matches?(buffer, pattern)
+      buffer = []
+      seen_blank_line = false
+    else
+      seen_blank_line = true
     end
   end
-  write(out, buffer) if matches?(buffer, pattern)
 end
+write buffer if matches?(buffer, pattern)
