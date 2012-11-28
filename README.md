@@ -12,8 +12,6 @@ It's not rubbish.
 
 * `e`: extract any archive.
 
-* `exip`: print external IP address.
-
 * `fin`: I have finished working on this git topic branch.
 
 * `gem-home`: open a gem's homepage.
@@ -26,7 +24,7 @@ It's not rubbish.
 
 * `git-track`: make local branch track remote branch of same name.
 
-* `inip`: print internal IP address.
+* `ip`: print your internal and external IP addresses.
 
 * `jsonpp`: pretty-print JSON.
 
