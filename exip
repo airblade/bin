@@ -1,2 +1,0 @@
-#!/bin/bash
-curl --silent http://checkip.dyndns.com | grep -Eo '([0-9]{1,3}\.){3}[0-9]{1,3}'
