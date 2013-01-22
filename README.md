@@ -6,6 +6,8 @@ It's not rubbish.
 
 * `cack`: search Rails log files for request blocks matching pattern.
 
+* `csvpp`: pretty-print CSV.
+
 * `diff_rails_changelogs`: does what it says on the tin.
 
 * `dim`: print image dimensions.

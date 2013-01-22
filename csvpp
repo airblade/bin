@@ -1,0 +1,64 @@
+#!/usr/bin/env ruby
+
+# Pretty-prints a CSV file.
+#
+# Alternative methods:
+#
+# - Pure shell, using `column`.
+# - `terminal-table` gem.
+#
+# TODO:
+#
+# - option to specify input csv's separator
+# - option to specify (no-)header
+# - option to specify alignment
+
+require 'csv'
+
+class CsvDecorator
+  attr_accessor :rows
+
+  def initialize(csv)
+    @rows = CSV.read csv
+  end
+
+  def pretty_print
+    out = []
+    out << separator
+    rows.each do |row|
+      out << format % row
+    end
+    out << separator
+    out.join "\n"
+  end
+
+  private
+
+  def separator
+    format.tr(' |', '-+') % column_widths.map { |width| '-' * width }
+  end
+
+  def format
+    @format ||= begin
+      fmt  = '| '
+      fmt += column_widths.map { |width| "%-#{width}s" }.join ' | '
+      fmt += ' |'
+      fmt
+    end
+  end
+
+  def column_widths
+    @column_widths ||= begin
+      # TODO: fancy one-liner
+      widths = []
+      rows.each do |row|
+        row.each_with_index do |col, index|
+          widths[index] = [ (widths[index] || 0), col.length ].max
+        end
+      end
+      widths
+    end
+  end
+end
+
+puts CsvDecorator.new(ARGV[0]).pretty_print
