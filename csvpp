@@ -19,7 +19,7 @@ class CsvDecorator
   attr_accessor :rows
 
   def initialize(csv)
-    @rows = CSV.read csv
+    @rows = CSV.new(csv).read
   end
 
   def pretty_print
@@ -61,4 +61,4 @@ class CsvDecorator
   end
 end
 
-puts CsvDecorator.new(ARGV[0]).pretty_print
+puts CsvDecorator.new(ARGF.read).pretty_print
