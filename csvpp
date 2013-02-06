@@ -18,7 +18,8 @@ class CsvDecorator
   attr_accessor :rows
 
   def initialize(csv)
-    @rows = CSV.new(csv).read
+    add_converter_for_blank_fields
+    @rows = CSV.new(csv, converters: :blank).read
   end
 
   def pretty_print
@@ -32,6 +33,11 @@ class CsvDecorator
   end
 
   private
+
+  # Blank fields become empty strings instead of nil.
+  def add_converter_for_blank_fields
+    CSV::Converters[:blank] = lambda { |s| s || '' }
+  end
 
   def separator
     format.tr(' |', '-+') % column_widths.map { |width| '-' * width }
