@@ -54,14 +54,12 @@ class CsvDecorator
 
   def column_widths
     @column_widths ||= begin
-      # TODO: fancy one-liner
-      widths = []
-      rows.each do |row|
+      rows.inject([]) do |widths, row|
         row.each_with_index do |col, index|
-          widths[index] = [ (widths[index] || 0), col.length ].max
+          widths[index] = [widths.fetch(index, 0), col.length].max
         end
+        widths
       end
-      widths
     end
   end
 end
