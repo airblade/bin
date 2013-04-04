@@ -40,6 +40,8 @@ It's not rubbish.
 
 * `tab`: open a new Terminal tab in same directory as current tab.
 
+* `transcode`: convert a Quicktime movie to various formats.
+
 * `wifi-meter`: live signal and noise readings.
 
 
