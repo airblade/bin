@@ -21,7 +21,7 @@ class Transcoder
     FileUtils.mkdir_p(@out_dir)
 
     compress "mp4" do |input, output|
-      # Final line of parameters is 'iPhone & iPod Touch' present without '-X 480'.
+      # Final line of parameters is 'iPhone & iPod Touch' preset without '-X 480'.
       run %W[HandBrakeCLI --input '#{input}'
                           --output '#{output}'
                           --width 640
