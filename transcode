@@ -1,0 +1,99 @@
+#!/usr/bin/env ruby
+
+# Encodes an episode into various formats
+# transcode some-video.mov
+#
+# References:
+# https://raw.github.com/ryanb/railscasts-scripts/master/bin/rcencode
+# http://diveintohtml5.info/video.html
+# https://trac.handbrake.fr/wiki/BuiltInPresets
+
+require "fileutils"
+
+class Transcoder
+  def initialize(path)
+    @source = File.expand_path(path)
+    @name = File.basename(@source, ".*")
+    @out_dir = "#{File.dirname(@source)}/video"
+  end
+
+  def process
+    FileUtils.mkdir_p(@out_dir)
+
+    compress "mp4" do |input, output|
+      # Final line of parameters is 'iPhone & iPod Touch' present without '-X 480'.
+      run %W[HandBrakeCLI --input '#{input}'
+                          --output '#{output}'
+                          --width 640
+                          --vb 600
+                          --two-pass
+                          --turbo
+                          -optimize
+                          -e x264 -q 20.0 -a 1 -E faac -B 128 -6 dpl2 -R Auto -D 0.0 -f mp4 -m -x cabac=0:ref=2:me=umh:bframes=0:weightp=0:subme=6:8x8dct=0:trellis=0].join(' ')
+    end
+
+    # compress "m4v" do |input, output|
+    #   run "HandBrakeCLI -i '#{input}' -o '#{output}' -e x264  -q 20.0 -a 1 -E ca_aac -B 96 -6 mono -R Auto -D 0.0 -f mp4 -X 640 -O -x 'cabac=0:ref=2:me=umh:bframes=0:weightp=0:subq=6:8x8dct=0:trellis=0'"
+    # end
+
+    compress "ogv" do |input, output|
+      run %W[ffmpeg2theora --videoquality 8
+                           --audioquality 8
+                           '#{input}'
+                           --output '#{output}'].join(' ')
+    end
+
+    compress "webm" do |input, output|
+      run %W[ffmpeg -pass 1
+                    -passlogfile '#{output}'
+                    -threads 0
+                    -keyint_min 0
+                    -g 250
+                    -skip_threshold 0
+                    -qmin 1
+                    -qmax 51
+                    -i '#{input}'
+                    -vcodec libvpx
+                    -b:v 614400
+                    -s 640x360
+                    -aspect 16:9
+                    -an
+                    -y
+                    NUL].join(' ')
+      run %W[ffmpeg -pass 2
+                    -passlogfile '#{output}'
+                    -threads 0
+                    -keyint_min 0
+                    -g 250
+                    -skip_threshold 0
+                    -qmin 1
+                    -qmax 51
+                    -i '#{input}'
+                    -vcodec libvpx
+                    -b:v 614400
+                    -s 640x360
+                    -aspect 16:9
+                    -acodec libvorbis
+                    -y
+                    '#{output}'].join(' ')
+      FileUtils.rm('NUL')
+      FileUtils.rm("#{output}-0.log")
+    end
+  end
+
+  def run(command)
+    puts "Running: #{command}"
+    system(command)
+  end
+
+  def compress(ext)
+    out_file = "#{@out_dir}/#{@name}.#{ext}"
+    if File.exist? out_file
+      puts "Skipping #{@name} because compressed file already exists."
+    else
+      yield(@source, out_file)
+    end
+  end
+end
+
+Transcoder.new($*.first).process
