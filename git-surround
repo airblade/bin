@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+#
+# DESCRIPTION
+#
+#     Shows commits surrounding a given commit.
+#
+# USAGE
+#
+#     git-surround [-<n>] <commit>
+#
+# OPTIONS
+#
+#    -<n>
+#        Limits the number of commits to show on either side.
+#        Defaults to 5.
+
+set -e
+
+[ -z $1 ] && {
+  echo "usage: git-surround [-<n>] <commit>" >&2
+  exit 1
+}
+
+if [ $# -eq 2 ]; then
+  N=${1:1}
+  SHA=$2
+else
+  N=5
+  SHA=$1
+fi
+
+git-rev-parse --verify $SHA >/dev/null 2>&1 || {
+  echo "no such commit: $SHA" >&2
+  exit 1
+}
+
+# subsequent commits
+git log --all --children --not $SHA^@ | tail -$(($N+1))
+echo
+# previous commits
+git log -$N $SHA~1

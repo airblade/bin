@@ -24,6 +24,8 @@ It's not rubbish.
 
 * `git-promote`: master → staging → production.
 
+* `git-surround`: show the commits surrounding a given commit.
+
 * `git-track`: make local branch track remote branch of same name.
 
 * `ip`: print your internal and external IP addresses.
