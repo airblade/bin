@@ -34,8 +34,4 @@ git-rev-parse --verify $SHA >/dev/null 2>&1 || {
   exit 1
 }
 
-# subsequent commits
-git log --all --children --not $SHA^@ | tail -$(($N+1))
-echo
-# previous commits
-git log -$N $SHA~1
+git log $SHA~$(($N+1))..HEAD | tail -$((2*$N+1)) && echo
