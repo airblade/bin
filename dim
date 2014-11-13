@@ -1,8 +1,11 @@
-#!/bin/sh
+#!/usr/bin/env ruby
 #
 # Print the dimensions of a given image.
 #
 # Usage: dim <image>
 #
 
-identify $@ | awk '{print $3}'
+# identify $@ | awk '{print $3}'
+
+require 'dimensions'
+puts Dimensions.dimensions(ARGV[0]).join('x')
