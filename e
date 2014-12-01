@@ -1,4 +1,4 @@
-#!/usr/local/bin/ruby -w
+#!/usr/bin/env ruby -w
 
 # The program e is a command line utility that extracts lots of
 # different archives. It is very simple and can be extended very easily.
