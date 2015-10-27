@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+#
+# Show the version of a particular gem in the bundle.
+#
+# Usage: bundle vv GEM
+#
+
+gem=`bundle show $1`
+echo ${gem#*-}
