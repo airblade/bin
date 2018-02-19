@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# Applies a patch from a GitHub pull request.
+#
+# Usage: git gh-apply PULL_REQUEST_URL
+
+curl -LsS "$1.patch" | git apply
+

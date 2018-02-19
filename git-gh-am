@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# Applies and commits a patch from a GitHub pull request.
+#
+# Usage: git gh-am PULL_REQUEST_URL
+
+curl -LsS "$1.patch" | git am
+
