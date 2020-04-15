@@ -2,7 +2,7 @@
 
 # Use when I have completed a git topic branch (and am still on it).
 
-CURRENT=`git branch | grep '\*' | awk '{print $2}'`
+CURRENT=`git symbolic-ref --short HEAD`
 git checkout master
 git merge ${CURRENT}
 git branch -d ${CURRENT}
