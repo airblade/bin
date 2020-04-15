@@ -4,5 +4,4 @@
 
 CURRENT=`git symbolic-ref --short HEAD`
 git checkout master
-git merge ${CURRENT}
-git branch -d ${CURRENT}
+git merge --ff-only ${CURRENT} && git branch -d ${CURRENT}
