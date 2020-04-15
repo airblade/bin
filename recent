@@ -1,0 +1,11 @@
+#!/bin/bash
+#
+# Show 10 most recently modified files.
+#
+# Usage: recent [path]
+#
+# https://stackoverflow.com/a/9052878/151007
+
+path="${1:-.}"
+
+find $path -type f -print0 | xargs -0 stat -f "%m %N" | sort -rn | head -10 | cut -f2- -d" "
