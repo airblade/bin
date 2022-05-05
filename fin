@@ -3,5 +3,5 @@
 # Use when I have completed a git topic branch (and am still on it).
 
 CURRENT=`git symbolic-ref --short HEAD`
-git checkout master
+git checkout master 2>/dev/null || git checkout main
 git merge --ff-only ${CURRENT} && git branch -d ${CURRENT}
